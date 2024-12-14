@@ -55,7 +55,7 @@ const AddTask: React.FC<AddTaskProps> = ({
         </IconButton>
       ) : (
         <Button
-          variant={inputVal ? "contained" : "outlined"}
+          variant="outlined"
           size="small"
           color="primary"
           startIcon={<GridAddIcon />}

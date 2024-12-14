@@ -40,7 +40,6 @@ const TaskCard: React.FC<TaskCardProps> = ({
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "red",
       }}
     >
       <CardContent
@@ -53,7 +52,10 @@ const TaskCard: React.FC<TaskCardProps> = ({
             component="h2"
             variant="subtitle2"
             gutterBottom
-            sx={{ fontWeight: "600" }}
+            sx={{
+              fontWeight: "600",
+              textDecoration: completed ? "line-through" : "none",
+            }}
           >
             {task.title}
           </Typography>
@@ -73,7 +75,9 @@ const TaskCard: React.FC<TaskCardProps> = ({
           color={completed ? "success" : "primary"}
           startIcon={completed ? <CheckIcon /> : null}
           onClick={() => onDone(!completed)}
-          sx={{}}
+          sx={{
+            color: completed ? "white" : "inherit",
+          }}
         >
           {completed ? "Completed" : "Mark as complete"}
         </Button>
