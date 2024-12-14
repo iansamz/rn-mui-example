@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FormControl,
+  IconButton,
   OutlinedInput,
   useMediaQuery,
   useTheme,
@@ -25,40 +26,34 @@ const AddTask: React.FC<AddTaskProps> = ({
 }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const btnText = isEdited ? "Edit" : "Add";
   return (
-    <Grid
-      container
-      spacing={2}
-      columns={6}
+    <Box
       sx={{
-        mb: (theme) => theme.spacing(2),
         display: "flex",
-        alignItems: "center",
+        justifyContent: "space-between",
+        mb: theme.spacing(2),
+        gap: theme.spacing(2),
       }}
     >
-      <Grid size={{ xs: 5 }}>
-        <FormControl fullWidth variant="outlined">
-          <OutlinedInput
-            size="small"
-            id="add_task"
-            placeholder="Task..."
-            sx={{ flexGrow: 1 }}
-            inputProps={{
-              "aria-label": "add_task",
-            }}
-            value={inputVal}
-            onChange={onChange}
-          />
-        </FormControl>
-      </Grid>
-
-      <Grid
-        sx={{
-          display: "flex",
-          alignSelf: "center",
-        }}
-        size={{ xs: 1 }}
-      >
+      <FormControl fullWidth variant="outlined">
+        <OutlinedInput
+          size="small"
+          id="add_task"
+          placeholder="Task..."
+          sx={{ flexGrow: 1 }}
+          inputProps={{
+            "aria-label": "add_task",
+          }}
+          value={inputVal}
+          onChange={onChange}
+        />
+      </FormControl>
+      {isSmallScreen ? (
+        <IconButton onClick={handleClick} disabled={!inputVal}>
+          <GridAddIcon />
+        </IconButton>
+      ) : (
         <Button
           variant={inputVal ? "contained" : "outlined"}
           size="small"
@@ -71,10 +66,10 @@ const AddTask: React.FC<AddTaskProps> = ({
             color: "primary.main",
           }}
         >
-          {isEdited ? "Edit" : "Add"}
+          {btnText}
         </Button>
-      </Grid>
-    </Grid>
+      )}
+    </Box>
   );
 };
 
