@@ -5,18 +5,18 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import AppTheme from "../theme/AppTheme";
+import AppTheme from "@/theme/AppTheme";
 import {
   dataGridCustomizations,
   treeViewCustomizations,
-} from "../theme/customizations";
+} from "@/theme/customizations";
 import { useColorScheme } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SnackProvider } from "../providers/SnackProvider";
+import { SnackProvider } from "@/providers/SnackProvider";
 
 const xThemeComponents = {
   ...dataGridCustomizations,
@@ -29,7 +29,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function RootLayout() {
               headerShown: false,
             }}
           >
-            <Stack.Screen name="index" />
+            <Stack.Screen name="(todos)" />
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />

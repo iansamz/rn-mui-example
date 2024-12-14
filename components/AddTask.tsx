@@ -7,7 +7,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import { GridAddIcon } from "@mui/x-data-grid";
 import React from "react";
 
