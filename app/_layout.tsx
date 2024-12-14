@@ -16,6 +16,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { SnackProvider } from "../providers/SnackProvider";
 
 const xThemeComponents = {
   ...dataGridCustomizations,
@@ -43,17 +44,19 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AppTheme themeComponents={xThemeComponents}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="index" />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </AppTheme>
+      <SnackProvider>
+        <AppTheme themeComponents={xThemeComponents}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </AppTheme>
+      </SnackProvider>
     </ThemeProvider>
   );
 }

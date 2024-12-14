@@ -1,11 +1,11 @@
-import { Alert, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 import TaskCard from "../components/TaskCard";
 import AddTask from "../components/AddTask";
 import { Task } from "../models/Task";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import { useSnack } from "../providers/SnackProvider";
 
 export default function HomeScreen() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -13,28 +13,14 @@ export default function HomeScreen() {
   const [isEdited, setIsEdited] = useState(false);
   const [editedId, setEditedId] = useState<number | null>(null);
 
-  const [snack, setSnack] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
+  const { openSnack } = useSnack();
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/todos")
       .then((response) => response.json())
       .then((data) => setTasks(data.slice(0, 10))) // Limit to 10 tasks
       .catch((error) => console.error(error));
-  }, []);
-
-  const handleOpenSnack =
-    (message: string, severity: "success" | "error" | "info" | "warning") =>
-    () => {
-      setSnack({ message, open: true, severity });
-    };
-
-  const handleCloseSnack = () => {
-    setSnack({ ...snack, open: false });
-  };
+  });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputVal(e.target.value);
@@ -57,17 +43,14 @@ export default function HomeScreen() {
       ]);
     }
     setInputVal("");
-    handleOpenSnack(
-      `Task ${isEdited ? "edited" : "added"} successfully`,
-      "success"
-    )();
+    openSnack("success", `Task ${isEdited ? "edited" : "added"} successfully`);
     setIsEdited(false);
   };
 
   const onDelete = (id: number) => {
     const newTasks = tasks.filter((todo) => todo.id !== id);
     setTasks(newTasks);
-    handleOpenSnack("Task deleted successfully", "error")();
+    openSnack("error", "Task deleted successfully");
   };
 
   const handleDone = (id: number) => {
@@ -78,7 +61,7 @@ export default function HomeScreen() {
       return task;
     });
     setTasks(updated);
-    handleOpenSnack("Task updated successfully", "success")();
+    openSnack("success", "Task updated successfully");
   };
 
   const handleEdit = (id: number) => {
@@ -118,22 +101,6 @@ export default function HomeScreen() {
           ))}
         </Grid>
       </Box>
-      <Snackbar
-        open={snack.open}
-        autoHideDuration={2000}
-        onClose={handleCloseSnack}
-        // message={snack.message}
-        key={snack.message + new Date().getTime()}
-      >
-        <Alert
-          onClose={handleCloseSnack}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {snack.message}
-        </Alert>
-      </Snackbar>
     </Layout>
   );
 }
