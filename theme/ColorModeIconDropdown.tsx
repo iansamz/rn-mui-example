@@ -5,10 +5,6 @@ import Box from "@mui/material/Box";
 import IconButton, { IconButtonOwnProps } from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {
-  Appearance,
-  useColorScheme as userColorSchemeNative,
-} from "react-native";
 import { useColorScheme } from "@mui/material/styles";
 
 export default function ColorModeIconDropdown(props: IconButtonOwnProps) {

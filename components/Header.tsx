@@ -18,7 +18,7 @@ export default function Header() {
       spacing={2}
     >
       <Box>
-        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        <Typography component="h2" variant="h6" sx={{ alignContent: "center" }}>
           Task List
         </Typography>
       </Box>
